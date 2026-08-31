@@ -7,11 +7,11 @@ npm.cmd install
 npm.cmd start
 ```
 
-Send a `POST` request to `http://localhost:3000/api/profile-identifier` with JSON:
+Send a `POST` request to `https://challenge-z1of.onrender.com/api/profile-identifier` with JSON:
 
 ```json
 {
-  "profileUrl": "https://www.linkedin.com/in/kriti-jaiswal1-/"
+  "profileUrl": "https://www.linkedin.com/in/vamsidhar-kalaga-7738b8230/"
 }
 ```
 
@@ -20,7 +20,8 @@ Successful response:
 ```json
 {
   "success": true,
-  "profileIdentifier": "kriti-jaiswal1-"
+  "profileIdentifier": "vamsidhar-kalaga-7738b8230"
+  "profileData": ....
 }
 ```
 
