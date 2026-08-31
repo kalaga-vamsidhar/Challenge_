@@ -4,28 +4,27 @@ const { jsonifyUsingLlm } = require("../utils/llmParser");
 
 async function getProfileInformation(profileIdentifier) {
   // add regexpattern to the api url to get the specific data you want, for example: "ExperienceOnly" or "SkillsOnly"
-  // const ActivityData = await getPartOfProfile(profileIdentifier, "Activity");
-  // const AboutData = await getPartOfProfile(profileIdentifier, "AboveActivity");
+  const ActivityData = await getPartOfProfile(profileIdentifier, "Activity");
+  const AboutData = await getPartOfProfile(profileIdentifier, "AboveActivity");
+  const BelowActivityPart1WithoutExp = await getPartOfProfile(profileIdentifier, "BelowActivityPart1WithoutExp");
   const ExperienceOnlyData = await getPartOfProfile(profileIdentifier, "ExperienceOnly");
-  // const ActivityPart1WithoutExp = await getPartOfProfile(profileIdentifier, "ActivityPart1WithoutExp");
-  // const SkillsData = await getPartOfProfile(profileIdentifier, "BelowActivityPart7");
-  // const BelowActivityPart2 = await getPartOfProfile(profileIdentifier, "BelowActivityPart2");
-  // const BelowActivityPart3 = await getPartOfProfile(profileIdentifier, "BelowActivityPart3");
-  // const BelowActivityPart4 = await getPartOfProfile(profileIdentifier, "BelowActivityPart4");
-  // const BelowActivityPart5 = await getPartOfProfile(profileIdentifier, "BelowActivityPart5");
-  // const BelowActivityPart6 = await getPartOfProfile(profileIdentifier, "BelowActivityPart6");
-  return {
-  //   ActivityData,
-  //   AboutData,
-    Experience: await jsonifyUsingLlm(ExperienceOnlyData),
-    // ActivityPart1WithoutExp,
-    // SkillsData,
-    // BelowActivityPart2,
-    // BelowActivityPart3,
-    // BelowActivityPart4,
-    // BelowActivityPart5,
-    // BelowActivityPart6
-  };
+  const SkillsData = await getPartOfProfile(profileIdentifier, "BelowActivityPart7");
+  const BelowActivityPart3 = await getPartOfProfile(profileIdentifier, "BelowActivityPart3");
+  const BelowActivityPart4 = await getPartOfProfile(profileIdentifier, "BelowActivityPart4");
+  const BelowActivityPart5 = await getPartOfProfile(profileIdentifier, "BelowActivityPart5");
+  const BelowActivityPart6 = await getPartOfProfile(profileIdentifier, "BelowActivityPart6");
+ 
+  return{
+    ActivityData,
+    AboutData,
+    BelowActivityPart1WithoutExp,
+    experience: await jsonifyUsingLlm(ExperienceOnlyData),
+    SkillsData,
+    BelowActivityPart3,
+    BelowActivityPart4,
+    BelowActivityPart5,
+    BelowActivityPart6
+  }
 }
 
 async function authenticateUser() {
