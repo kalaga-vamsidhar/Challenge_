@@ -1,4 +1,4 @@
-const { getProfileInformation } = require('../services/linkedInApiClient');
+const { getProfileInformation, authenticateUser } = require('../services/linkedInApiClient');
 
 function getProfileIdentifier(profileUrl) {
   if (typeof profileUrl !== 'string' || !profileUrl.trim()) {
@@ -37,14 +37,16 @@ async function extractProfileIdentifier(req, res) {
 
   try {
     const profileInformation = await getProfileInformation(profileIdentifier);
-
+    // const authenticatedProfileInformation = await authenticateUser();
     return res.status(200).json({
       success: true,
       profileIdentifier,
       profileInformation
     });
   } catch (error) {
+    console.error('Error fetching profile information:', error);
     return res.status(502).json({
+      console: console.error('Error fetching profile information:', error),
       success: false,
       message: 'Unable to retrieve profile information from the external API.'
     });
