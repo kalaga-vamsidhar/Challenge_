@@ -3,22 +3,35 @@ const { getPartOfProfile } = require("../utils/apiFetcher");
 const { jsonifyUsingLlm } = require("../utils/llmParser");
 
 async function getProfileInformation(profileIdentifier) {
-  // add regexpattern to the api url to get the specific data you want, for example: "ExperienceOnly" or "SkillsOnly"
-  const ActivityData = await getPartOfProfile(profileIdentifier, "Activity");
-  const AboutData = await getPartOfProfile(profileIdentifier, "AboveActivity");
-  const BelowActivityPart1WithoutExp = await getPartOfProfile(profileIdentifier, "BelowActivityPart1WithoutExp");
-  const ExperienceOnlyData = await getPartOfProfile(profileIdentifier, "ExperienceOnly");
-  const SkillsData = await getPartOfProfile(profileIdentifier, "BelowActivityPart7");
-  const BelowActivityPart3 = await getPartOfProfile(profileIdentifier, "BelowActivityPart3");
-  const BelowActivityPart4 = await getPartOfProfile(profileIdentifier, "BelowActivityPart4");
-  const BelowActivityPart5 = await getPartOfProfile(profileIdentifier, "BelowActivityPart5");
-  const BelowActivityPart6 = await getPartOfProfile(profileIdentifier, "BelowActivityPart6");
+
+  const [
+  ActivityData,
+  AboutData,
+  BelowActivityPart1WithoutExp,
+  ExperienceOnlyData,
+  SkillsData,
+  BelowActivityPart3,
+  BelowActivityPart4,
+  BelowActivityPart5,
+  BelowActivityPart6
+] = await Promise.all([
+  getPartOfProfile(profileIdentifier, "Activity"),
+  getPartOfProfile(profileIdentifier, "AboveActivity"),
+  getPartOfProfile(profileIdentifier, "BelowActivityPart1WithoutExp"),
+  getPartOfProfile(profileIdentifier, "ExperienceOnly"),
+  getPartOfProfile(profileIdentifier, "BelowActivityPart7"),
+  getPartOfProfile(profileIdentifier, "BelowActivityPart3"),
+  getPartOfProfile(profileIdentifier, "BelowActivityPart4"),
+  getPartOfProfile(profileIdentifier, "BelowActivityPart5"),
+  getPartOfProfile(profileIdentifier, "BelowActivityPart6")
+]);
  
   return{
     ActivityData,
     AboutData,
     BelowActivityPart1WithoutExp,
-    experience: await jsonifyUsingLlm(ExperienceOnlyData),
+    // experience: await jsonifyUsingLlm(ExperienceOnlyData),
+    experience: ExperienceOnlyData,
     SkillsData,
     BelowActivityPart3,
     BelowActivityPart4,
